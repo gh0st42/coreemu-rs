@@ -1,0 +1,21 @@
+[package]
+name = "coreemu"
+version = "0.1.0"
+authors = ["Lars Baumgaertner <1264131+gh0st42@users.noreply.github.com>"]
+description = "Rust client library for gRPC interface of coreemu https://github.com/coreemu/coreemu"
+edition = "2018"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/gh0st42/coreemu-rs"
+categories = [ "network-programming" ] 
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tonic = "0.5.0"
+prost = "0.8.0"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+futures-util = "0.3.15"
+
+[build-dependencies]
+tonic-build = "0.5"

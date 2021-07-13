@@ -1,0 +1,19 @@
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    //tonic_build::compile_protos("proto/core/api/grpc/common.proto")?;
+    //tonic_build::compile_protos("proto/core/api/grpc/configservices.proto")?;
+    //tonic_build::compile_protos("proto/core/api/grpc/core.proto")?;
+    //tonic_build::compile_protos("proto/core/api/grpc/mobility.proto")?;
+    tonic_build::configure().build_server(false).compile(
+        &[
+            "proto/core/api/grpc/common.proto",
+            "proto/core/api/grpc/configservices.proto",
+            "proto/core/api/grpc/core.proto",
+            "proto/core/api/grpc/mobility.proto",
+            "proto/core/api/grpc/emane.proto",
+            "proto/core/api/grpc/services.proto",
+            "proto/core/api/grpc/wlan.proto",
+        ],
+        &["proto"],
+    )?;
+    Ok(())
+}

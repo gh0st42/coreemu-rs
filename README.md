@@ -1,6 +1,6 @@
 # coreemu-rs
 
-This is a client library to use the gRPC interface of [coreemu](https://github.com/coreemu/coreemu) from rust.
+This is a client library to use the gRPC interface of [coreemu](https://github.com/coreemu/core) from rust.
 All gRPC functions are exposed in their raw form as produced by [tonic-build](https://crates.io/crates/tonic-build) but there are is also a thin (and incomplete) wrapper to make the API a bit more usable.
 
 To use this library add the following dependency to your `Cargo.toml`:

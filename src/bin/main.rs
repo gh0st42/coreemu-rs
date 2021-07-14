@@ -6,14 +6,15 @@ use std::env;
 
 fn usage() {
     println!(
-        "usage: {} <node_name|node_id> [x] [y] [z]\n\tupdating position requires node id!",
+        "usage: {} <node_name|node_id> [x] [y] [z]\n\tupdating position requires node id!\n\n\tDefault server: http://127.0.0.1:50051\n\talternative server via REMOTE_CORE environment variable",
         env::args().next().unwrap()
     );
     std::process::exit(1);
 }
 
 async fn print_pos(node_name: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = Client::connect("http://127.0.0.1:50051").await?;
+    let remote = env::var("REMOTE_CORE").unwrap_or("http://127.0.0.1:50051".into());
+    let mut client = Client::connect(remote).await?;
 
     let response = client.get_sessions().await?;
 
@@ -28,7 +29,7 @@ async fn print_pos(node_name: &str) -> Result<(), Box<dyn std::error::Error>> {
     //println!("RESPONSE={:#?}", response.location.unwrap());
 
     for n in response.nodes {
-        if n.name == node_name {
+        if n.name == node_name || node_name == n.id.to_string() {
             println!("{} : {:#?}", n.id, n.position.unwrap());
         }
     }
@@ -36,7 +37,8 @@ async fn print_pos(node_name: &str) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn set_pos(node_id: i32, x: f32, y: f32, z: f32) -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = Client::connect("http://127.0.0.1:50051").await?;
+    let remote = env::var("REMOTE_CORE").unwrap_or("http://127.0.0.1:50051".into());
+    let mut client = Client::connect(remote).await?;
 
     let response = client.get_sessions().await?;
 

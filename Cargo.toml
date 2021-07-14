@@ -1,6 +1,6 @@
 [package]
 name = "coreemu"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Lars Baumgaertner <1264131+gh0st42@users.noreply.github.com>"]
 description = "Rust client library for gRPC interface of coreemu https://github.com/coreemu/core"
 edition = "2018"

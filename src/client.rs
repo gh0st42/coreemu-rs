@@ -11,7 +11,7 @@ pub struct Client {
 }
 
 impl Client {
-    pub async fn connect(core_addr: &'static str) -> Result<Self, tonic::transport::Error> {
+    pub async fn connect(core_addr: String) -> Result<Self, tonic::transport::Error> {
         Ok(Client {
             inner: CoreApiClient::connect(core_addr).await?,
         })

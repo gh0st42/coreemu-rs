@@ -1,13 +1,16 @@
 [package]
 name = "coreemu"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Lars Baumgaertner <1264131+gh0st42@users.noreply.github.com>"]
-description = "Rust client library for gRPC interface of coreemu https://github.com/coreemu/coreemu"
+description = "Rust client library for gRPC interface of coreemu https://github.com/coreemu/core"
 edition = "2018"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/gh0st42/coreemu-rs"
 categories = [ "network-programming" ] 
 
+[[bin]]
+name = "core-pos"
+path = "src/bin/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

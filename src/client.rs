@@ -1,6 +1,8 @@
 use futures_util::stream;
 use tonic::transport::Channel;
 use tonic::Request;
+use tonic::Response;
+use tonic::Streaming;
 
 use crate::core::core_api_client::CoreApiClient;
 use crate::core::*;
@@ -162,5 +164,17 @@ impl Client {
             action: action as i32,
         });
         Ok(self.inner().mobility_action(request).await?.into_inner())
+    }
+
+    pub async fn events(
+        &mut self,
+        session_id: i32,
+        events: Vec<event_type::Enum>,
+    ) -> Result<Streaming<Event>, tonic::Status> {
+        let request = tonic::Request::new(EventsRequest {
+            session_id,
+            events: events.iter().map(|e| *e as i32).collect(),
+        });
+        Ok(self.inner().events(request).await?.into_inner())
     }
 }

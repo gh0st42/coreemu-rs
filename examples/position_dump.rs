@@ -6,8 +6,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let response = client.get_sessions().await?;
 
-    println!("RESPONSE={:?}", response);
+    // println!("RESPONSE={:?}", response);
 
+    if response.is_empty() {
+        eprintln!("No sessions found");
+        return Ok(());
+    }
     let session_id = response[0].id;
 
     let response = client.get_session(session_id).await?.unwrap();
@@ -17,10 +21,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //println!("RESPONSE={:#?}", response.location.unwrap());
 
     for n in response.nodes {
-        dbg!(&n);
-        if n.name.starts_with("n") {
-            println!("RESPONSE={:#?}", n.position.unwrap());
-        }
+        //dbg!(&n);
+        let pos = n.position.unwrap();
+        println!("{}={},{},{}", n.name, pos.x, pos.y, pos.z);
+        //if n.name.starts_with("n") {
+        //println!("RESPONSE={:#?}", n.position.unwrap().x);
+        //}
     }
     Ok(())
 }

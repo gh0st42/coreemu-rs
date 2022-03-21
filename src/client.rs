@@ -1,10 +1,10 @@
 use futures_util::stream;
 use tonic::transport::Channel;
 use tonic::Request;
-use tonic::Response;
 use tonic::Streaming;
 
 use crate::core::core_api_client::CoreApiClient;
+use crate::core::move_node_request::MoveType;
 use crate::core::*;
 use crate::mobility::*;
 
@@ -64,20 +64,31 @@ impl Client {
         &mut self,
         session_id: i32,
         node_id: i32,
-        position: Option<crate::core::Position>,
         icon: String,
         source: String,
-        geo: Option<crate::core::Geo>,
     ) -> Result<crate::core::EditNodeResponse, tonic::Status> {
         let request = tonic::Request::new(EditNodeRequest {
             session_id,
             node_id,
-            position,
             icon,
             source,
-            geo,
         });
         Ok(self.inner().edit_node(request).await?.into_inner())
+    }
+
+    pub async fn move_node(
+        &mut self,
+        session_id: i32,
+        node_id: i32,
+        move_type: MoveType,
+    ) -> Result<crate::core::MoveNodeResponse, tonic::Status> {
+        let request = tonic::Request::new(MoveNodeRequest {
+            session_id,
+            node_id,
+            source: "".to_string(),
+            move_type: Some(move_type),
+        });
+        Ok(self.inner().move_node(request).await?.into_inner())
     }
 
     pub async fn create_session(
@@ -114,8 +125,9 @@ impl Client {
     pub async fn execute_script(
         &mut self,
         script: String,
+        args: String,
     ) -> Result<crate::core::ExecuteScriptResponse, tonic::Status> {
-        let request = tonic::Request::new(ExecuteScriptRequest { script });
+        let request = tonic::Request::new(ExecuteScriptRequest { script, args });
         Ok(self.inner().execute_script(request).await?.into_inner())
     }
 

@@ -15,10 +15,10 @@ path = "src/bin/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tonic = "0.5.0"
-prost = "0.8.0"
+tonic = { version = "0.7.2", default-features = false, features = ["channel", "codegen", "prost", "transport"] }
+prost = "0.10.4"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 futures-util = "0.3.15"
 
 [build-dependencies]
-tonic-build = "0.5"
+tonic-build = "0.7"

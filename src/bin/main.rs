@@ -13,7 +13,7 @@ fn usage() {
 }
 
 async fn print_pos(node_name: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let remote = env::var("REMOTE_CORE").unwrap_or("http://127.0.0.1:50051".into());
+    let remote = env::var("REMOTE_CORE").unwrap_or_else(|_| "http://127.0.0.1:50051".into());
     let mut client = Client::connect(remote).await?;
 
     let response = client.get_sessions().await?;
@@ -37,7 +37,7 @@ async fn print_pos(node_name: &str) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 async fn set_pos(node_id: i32, x: f32, y: f32, z: f32) -> Result<(), Box<dyn std::error::Error>> {
-    let remote = env::var("REMOTE_CORE").unwrap_or("http://127.0.0.1:50051".into());
+    let remote = env::var("REMOTE_CORE").unwrap_or_else(|_| "http://127.0.0.1:50051".into());
     let mut client = Client::connect(remote).await?;
 
     let response = client.get_sessions().await?;

@@ -25,7 +25,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //println!("RESPONSE={:#?}", response.location.unwrap());
 
     for n in response.nodes {
-        if n.name.starts_with("n") {
+        if n.name.starts_with('n') {
             println!("RESPONSE={:#?}", n.position.unwrap());
         }
     }

@@ -23,7 +23,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for n in response.nodes {
         //dbg!(&n);
         let pos = n.position.unwrap();
-        println!("{}={},{},{}", n.name, pos.x, pos.y, pos.z);
+        if !n.model.is_empty() {
+            println!("{}={},{},{}", n.name, pos.x, pos.y, pos.z);
+        }
         //if n.name.starts_with("n") {
         //println!("RESPONSE={:#?}", n.position.unwrap().x);
         //}

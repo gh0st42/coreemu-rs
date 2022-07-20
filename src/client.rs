@@ -1,7 +1,6 @@
 use futures_util::stream;
 use tonic::transport::Channel;
 use tonic::Request;
-use tonic::Response;
 use tonic::Streaming;
 
 use crate::core::core_api_client::CoreApiClient;
@@ -79,7 +78,6 @@ impl Client {
         });
         Ok(self.inner().edit_node(request).await?.into_inner())
     }
-
     pub async fn create_session(
         &mut self,
         session_id: i32,

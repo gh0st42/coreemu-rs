@@ -1,9 +1,13 @@
+use std::env;
+
 use coreemu::core::core_api_client::CoreApiClient;
 use coreemu::core::{GetSessionRequest, GetSessionsRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = CoreApiClient::connect("http://127.0.0.1:50051").await?;
+    let remote = env::var("REMOTE_CORE").unwrap_or_else(|_| "http://127.0.0.1:50051".into());
+
+    let mut client = CoreApiClient::connect(remote).await?;
 
     let request = tonic::Request::new(GetSessionsRequest {});
 

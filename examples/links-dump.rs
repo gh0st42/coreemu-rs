@@ -1,8 +1,11 @@
+use std::env;
+
 use coreemu::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = Client::connect("http://127.0.0.1:50051".into()).await?;
+    let remote = env::var("REMOTE_CORE").unwrap_or_else(|_| "http://127.0.0.1:50051".into());
+    let mut client = Client::connect(remote).await?;
 
     let response = client.get_sessions().await?;
 
